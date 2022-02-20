@@ -1,5 +1,9 @@
+import './App.scss';
+
 const App = () => {
-  return `<div class="test">Test : work.</div>`;
+  return `
+   <div class="app">radi</div>
+  `;
 };
 
 export default App;

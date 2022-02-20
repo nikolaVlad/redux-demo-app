@@ -1,10 +1,9 @@
-import App from './components/App'
-import './scss/app.scss';
+import App from './components/App';
+import './scss/main.scss';
 
-const app = () =>
-{
+const app = () => {
   const htmlApp = document.getElementById('app');
   htmlApp.innerHTML = App();
-}
+};
 
 app();
