@@ -1,0 +1,18 @@
+{
+  "parserOptions": {
+      "ecmaVersion": 2018,
+      "sourceType": "module",
+      "allowImportExportEverywhere": true
+  },
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es2021": true
+  },
+
+  "rules": {
+    "no-unused-vars":"warn",
+    "no-empty-function" : "warn",
+    "require-await" :"warn"
+  }
+}
