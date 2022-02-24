@@ -2,9 +2,14 @@ import './App.scss';
 import { add, store } from '../redux/store.js';
 
 const App = () => {
-  const addNotice = () => {
-    store.dispatch(add());
+  const addNotice = (title, description) => {
+    store.dispatch(add(title, description));
   };
+
+  store.subscribe(() => {
+    console.log('Store has changed.');
+    console.log({ store: store.getState() });
+  });
 
   const render = () => {
     const container = document.createElement('div');
@@ -33,7 +38,7 @@ const App = () => {
     const noticeAddButton = document.createElement('button');
     noticeAddButton.innerText = 'Button';
     noticeAddButton.addEventListener('click', () => {
-      addNotice();
+      addNotice('title', 'desc test');
     });
 
     inputForm.append(noticeTitle, noticeDescription, noticeAddButton);
