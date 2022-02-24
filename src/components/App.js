@@ -1,35 +1,50 @@
 import './App.scss';
-import '../redux/store.js';
+import { add, store } from '../redux/store.js';
 
 const App = () => {
-  // const addNotice = () => {
-  //   console.log('radi funckija');
-  // };
+  const addNotice = () => {
+    store.dispatch(add());
+  };
 
-  // #point
-  // Need return code transform from innerHtml to
-  // DOM nodes structure.
+  const render = () => {
+    const container = document.createElement('div');
+    container.classList.add('container');
 
-  return `
-  <div class="container">
-  <div class="card">
-    <div class="main-place">
-      <div class="title">Notes</div>
-      <div class="input-form">
-        <input placeholder="title" type="text">
-        <textarea placeholder="description"></textarea>
-        <button onClick="addNotice()">Add</button>
-      </div>
-      <div class="notices-wrapper">
+    const card = document.createElement('div');
+    card.classList = 'card';
 
-        <div class="notice-card">
-          <!-- Place for all notices  -->
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-  `;
+    const mainPlace = document.createElement('div');
+    mainPlace.className = 'main-place';
+
+    const title = document.createElement('div');
+    title.innerText = 'Notes';
+    title.className = 'title';
+
+    const inputForm = document.createElement('div');
+    inputForm.className = 'input-form';
+
+    const noticeTitle = document.createElement('input');
+    noticeTitle.type = 'text';
+    noticeTitle.placeholder = 'title';
+
+    const noticeDescription = document.createElement('textarea');
+    noticeDescription.placeholder = 'description';
+
+    const noticeAddButton = document.createElement('button');
+    noticeAddButton.innerText = 'Button';
+    noticeAddButton.addEventListener('click', () => {
+      addNotice();
+    });
+
+    inputForm.append(noticeTitle, noticeDescription, noticeAddButton);
+    mainPlace.append(title, inputForm);
+    card.append(mainPlace);
+    container.append(card);
+
+    document.getElementById('app').append(container);
+  };
+
+  return render();
 };
 
 export default App;

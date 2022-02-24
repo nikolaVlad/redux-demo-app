@@ -7,17 +7,18 @@ const actions = {
 };
 
 const noticeReducer = (store = noticeStore, action) => {
-  console.log('Fired code in reducer function.');
-  console.log(store);
-  console.log(action);
+  switch (action.type) {
+    case actions.addNotice:
+      console.log('Desila se akcija ', action.type);
+      console.log(store);
+      break;
+  }
 };
 
-const addNotice = () => {
+export const add = () => {
   return {
     type: actions.addNotice,
   };
 };
 
-const store = redux.createStore(noticeReducer);
-
-store.dispatch(addNotice());
+export const store = redux.createStore(noticeReducer);
