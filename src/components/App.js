@@ -2,6 +2,11 @@ import './App.scss';
 import { add, store } from '../redux/store.js';
 
 const App = () => {
+  const state = {
+    title: '',
+    description: '',
+  };
+
   const addNotice = (title, description) => {
     store.dispatch(add(title, description));
   };
@@ -10,6 +15,12 @@ const App = () => {
     console.log('Store has changed.');
     console.log({ store: store.getState() });
   });
+
+  const onInput = (e) => {
+    state[e.target.name] = e.target.value;
+  };
+
+  // const renderCard = (index, title, description) => {};
 
   const render = () => {
     const container = document.createElement('div');
@@ -31,14 +42,22 @@ const App = () => {
     const noticeTitle = document.createElement('input');
     noticeTitle.type = 'text';
     noticeTitle.placeholder = 'title';
+    noticeTitle.name = 'title';
+    noticeTitle.value = state.title;
+    noticeTitle.addEventListener('input', onInput);
 
     const noticeDescription = document.createElement('textarea');
     noticeDescription.placeholder = 'description';
+    noticeDescription.name = 'description';
+    noticeTitle.value = state.description;
+    noticeDescription.addEventListener('input', onInput);
 
     const noticeAddButton = document.createElement('button');
     noticeAddButton.innerText = 'Button';
     noticeAddButton.addEventListener('click', () => {
-      addNotice('title', 'desc test');
+      addNotice(state.title, state.description);
+      noticeTitle.value = '';
+      noticeDescription.value = '';
     });
 
     inputForm.append(noticeTitle, noticeDescription, noticeAddButton);
