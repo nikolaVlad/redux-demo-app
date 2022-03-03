@@ -81,6 +81,37 @@
           }
         }
       }
+
+      .notice {
+        padding: 20px;
+        margin: 15px;
+        background-color: rgba(73, 73, 73, 0.609);
+        border-radius: 10px;
+
+        hr {
+          border: 1px solid rgba(255, 51, 0, 0.459);
+
+          &.done {
+            border: 1px solid rgba(102, 255, 0, 0.411);
+          }
+        }
+
+        .notice-title {
+          color: rgba(255, 166, 0, 0.952);
+          font-size: 1.2rem;
+          font-weight: 600;
+        }
+
+        .notice-description {
+          padding-right: 7px;
+          padding-top: 10px;
+          color: rgba(245, 245, 245, 0.863);
+          font-size: 0.99rem;
+          max-height: 200px;
+          overflow: auto;
+          opacity: 0.8;
+        }
+      }
     }
   }
 }

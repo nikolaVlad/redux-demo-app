@@ -5,22 +5,73 @@ const App = () => {
   const state = {
     title: '',
     description: '',
+    done: false,
   };
 
+  const noticePlaceId = 'noticePlace';
+
   const addNotice = (title, description) => {
-    store.dispatch(add(title, description));
+    if (title.trim() !== '' && description.trim() !== '') {
+      return store.dispatch(add(title, description));
+    }
+
+    alert('Please fill all fields.');
   };
 
   store.subscribe(() => {
     console.log('Store has changed.');
     console.log({ store: store.getState() });
+
+    renderAllCards(store.getState(), noticePlaceId);
   });
 
   const onInput = (e) => {
     state[e.target.name] = e.target.value;
   };
 
-  // const renderCard = (index, title, description) => {};
+  const renderCard = (index, title, description, done, targetElementId) => {
+    // targetElement.innerHTML += `
+    //   <div class="notice">
+    //     <div class="notice-title"> Title </div>
+    //     <hr />
+    //     <div class="notice-description">
+    //       Neki  text Neki  text
+    //     </div>
+    //   </div>
+    // `;
+
+    const notice = document.createElement('div');
+    notice.className = 'notice';
+
+    const noticeTitle = document.createElement('div');
+    noticeTitle.className = 'notice-title';
+    noticeTitle.innerText = title;
+
+    const hr = document.createElement('hr');
+
+    if (done) {
+      hr.className = 'done';
+    }
+
+    const noticeDescription = document.createElement('div');
+    noticeDescription.className = 'notice-description';
+    noticeDescription.innerText = description;
+
+    notice.append(noticeTitle, hr, noticeDescription);
+
+    document.getElementById(targetElementId).append(notice);
+  };
+
+  const renderAllCards = (source, targetElementId) => {
+    document.getElementById(targetElementId).innerHTML = '';
+    for (const item of source) {
+      const { title, description, done } = item;
+      renderCard(0, title, description, done, targetElementId);
+    }
+
+    // const renderPlace = document.getElementById(targetElementId);
+    // renderCard(undefined, undefined, undefined, renderPlace);
+  };
 
   const render = () => {
     const container = document.createElement('div');
@@ -31,6 +82,7 @@ const App = () => {
 
     const mainPlace = document.createElement('div');
     mainPlace.className = 'main-place';
+    mainPlace.id = 'mainPlaceId';
 
     const title = document.createElement('div');
     title.innerText = 'Notes';
@@ -53,7 +105,7 @@ const App = () => {
     noticeDescription.addEventListener('input', onInput);
 
     const noticeAddButton = document.createElement('button');
-    noticeAddButton.innerText = 'Button';
+    noticeAddButton.innerText = '+ Add';
     noticeAddButton.addEventListener('click', () => {
       addNotice(state.title, state.description);
       noticeTitle.value = '';
@@ -61,7 +113,11 @@ const App = () => {
     });
 
     inputForm.append(noticeTitle, noticeDescription, noticeAddButton);
-    mainPlace.append(title, inputForm);
+
+    const noticesPlace = document.createElement('div');
+    noticesPlace.id = noticePlaceId;
+
+    mainPlace.append(title, inputForm, noticesPlace);
     card.append(mainPlace);
     container.append(card);
 

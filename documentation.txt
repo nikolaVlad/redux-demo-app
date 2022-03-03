@@ -1,1 +1,3 @@
 // Fajl u kom ce biti dokumentacija o redux-u i o projektu...
+- Moguce je napraviti kasnije: renderovanje kartice preko emit-a.
+- Moguce je cak napraviti i useState preko emit-a.
